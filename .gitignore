@@ -38,3 +38,7 @@
 !.vscode/launch.json
 !.vscode/extensions.json
 *.code-workspace
+
+# Output
+*.ppm
+*.ppm.txt
