@@ -112,7 +112,7 @@ mod tests {
     fn vector_one() {
         let result = Vec3::one();
         assert_eq!(result.x, 1.0);
-        assert_eq!(result.y, 0.0);
+        assert_eq!(result.y, 1.0);
         assert_eq!(result.z, 1.0);
     }
 
