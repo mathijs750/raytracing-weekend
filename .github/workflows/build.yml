@@ -8,6 +8,7 @@ on:
 
 env:
   CARGO_TERM_COLOR: always
+  CARGO_MANIFEST_DIR: "./raytrace/Cargo.toml"
 
 jobs:
   check:
@@ -27,7 +28,7 @@ jobs:
         uses: actions-rs/tarpaulin@v0.1
         with:
           version: '0.15.0'
-          args: '-- --test-threads 1 --manifest-path "./raytrace/Cargo.toml"'
+          args: '-- --test-threads 1 --manifest-path "../raytrace/Cargo.toml"'
 
       - name: Upload to codecov.io
         uses: codecov/codecov-action@v1.0.2
