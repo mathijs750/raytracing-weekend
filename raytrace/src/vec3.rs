@@ -1,5 +1,5 @@
 use std::fmt;
-use std::ops::{Add, Mul, Neg, Sub};
+use std::ops::{Add, AddAssign, Sub, SubAssign, Div, DivAssign, Mul, MulAssign, Neg};
 
 #[derive(Debug, Copy, Clone, PartialEq)]
 pub struct Vec3 {
@@ -42,6 +42,16 @@ impl Add for Vec3 {
     }
 }
 
+impl AddAssign for Vec3 {
+    fn add_assign(&mut self, other: Self) {
+        *self = Self {
+            x: self.x + other.x,
+            y: self.y + other.y,
+            z: self.z + other.z,
+        };
+    }
+}
+
 impl Sub for Vec3 {
     type Output = Vec3;
 
@@ -75,6 +85,14 @@ impl Mul<f64> for Vec3 {
             y: self.y * factor,
             z: self.z * factor,
         }
+    }
+}
+
+impl Div<f64> for Vec3 {
+    type Output = Self;
+
+    fn div(self, rhs: f64) -> Self::Output {
+        Self {  }
     }
 }
 
@@ -131,5 +149,26 @@ mod tests {
         assert_eq!(-result.x, -1.0);
         assert_eq!(-result.y, -1.0);
         assert_eq!(-result.z, -1.0);
+    }
+
+    #[test]
+    fn vector_add() {
+        let value = Vec3::new(2.0, 2.0, 2.0);
+        let result = Vec3::one() + value;
+
+        assert_eq!(result.x, 3.0);
+        assert_eq!(result.y, 3.0);
+        assert_eq!(result.z, 3.0);
+    }
+
+    #[test]
+    fn vector_add_assign() {
+        let value = Vec3::new(2.0, 2.0, 2.0);
+        let mut result = Vec3::one();
+        result += value;
+
+        assert_eq!(result.x, 3.0);
+        assert_eq!(result.y, 3.0);
+        assert_eq!(result.z, 3.0);
     }
 }
