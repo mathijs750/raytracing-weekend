@@ -1,3 +1,4 @@
+mod color;
 mod vec3;
 
 fn main() {
@@ -14,9 +15,8 @@ fn main() {
             let g = (j as f64 / (image_height - 1) as f64) * 255.999;
             let b = (0.25 as f64) * 255.999;
 
-            let vector = vec3::Vec3::new(r, g, b);
-
-            print!("{}\n", vector);
+            let color = color::Color::new(r, g, b);
+            color.write_color();
         }
     }
 }
