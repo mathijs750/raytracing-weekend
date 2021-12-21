@@ -1,4 +1,4 @@
-mod vector3;
+mod vec3;
 
 fn main() {
     // Image
@@ -14,7 +14,7 @@ fn main() {
             let g = (j as f64 / (image_height - 1) as f64) * 255.999;
             let b = (0.25 as f64) * 255.999;
 
-            let vector = vector3::Vector3::new(r, g, b);
+            let vector = vec3::Vec3::new(r, g, b);
 
             print!(
                 "{} {} {}\n",
