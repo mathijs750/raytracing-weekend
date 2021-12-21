@@ -314,4 +314,60 @@ mod tests {
         assert_eq!(result1, "64 0 256");
         assert_eq!(result2, "0 1 1");
     }
+
+    #[test]
+    fn vector_length() {
+        let input = Vec3::new(5.0, 12.0, 0.0);
+
+        assert_eq!(input.length(), 13.0);
+    }
+
+    #[test]
+    fn vector_length_squared() {
+        let input = Vec3::new(5.0, 12.0, 0.0);
+
+        assert_eq!(input.length_squared(), 169.0);
+    }
+
+    #[test]
+    fn vector_dot_product() {
+        let a = Vec3::new(9.0, 2.0, 7.0);
+        let b = Vec3::new(4.0, 8.0, 10.0);
+
+        let result = Vec3::dot(a, b);
+
+        assert_eq!(122.0, result);
+    }
+
+    #[test]
+    fn vector_cross_product1() {
+        let a = Vec3::new(1.0, 0.0, 0.0);
+        let b = Vec3::new(0.0, 1.0, 0.0);
+
+        let result = Vec3::cross(a, b);
+
+        assert_eq!(0.0, result.x);
+        assert_eq!(0.0, result.y);
+        assert_eq!(1.0, result.z);
+    }
+
+    #[test]
+    fn vector_cross_product2() {
+        let a = Vec3::new(2.0, 3.0, 4.0);
+        let b = Vec3::new(5.0, 6.0, 7.0);
+
+        let result = Vec3::cross(a, b);
+
+        assert_eq!(-3.0, result.x);
+        assert_eq!(6.0, result.y);
+        assert_eq!(-3.0, result.z);
+    }
+
+    #[test]
+    fn vector_normalised() {
+        let input = Vec3::new(3.0, 12.0, 24.0);
+        let expected = Vec3::new(1.0 / 9.0, 4.0 / 9.0, 8.0 / 9.0);
+
+        assert_eq!(expected, input.normlised());
+    }
 }
