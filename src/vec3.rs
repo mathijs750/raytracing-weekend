@@ -161,34 +161,34 @@ mod tests {
     #[test]
     fn vector_new() {
         let result = Vec3::new(3.0, 5.5, 1.22);
-        assert_eq!(result.x, 3.0);
-        assert_eq!(result.y, 5.5);
-        assert_eq!(result.z, 1.22);
+        assert_eq!(3.0, result.x);
+        assert_eq!(5.5, result.y);
+        assert_eq!(1.22, result.z);
     }
 
     #[test]
     fn vector_one() {
         let result = Vec3::one();
-        assert_eq!(result.x, 1.0);
-        assert_eq!(result.y, 1.0);
-        assert_eq!(result.z, 1.0);
+        assert_eq!(1.0, result.x);
+        assert_eq!(1.0, result.y);
+        assert_eq!(1.0, result.z);
     }
 
     #[test]
     fn vector_zero() {
         let result = Vec3::zero();
-        assert_eq!(result.x, 0.0);
-        assert_eq!(result.y, 0.0);
-        assert_eq!(result.z, 0.0);
+        assert_eq!(0.0, result.x);
+        assert_eq!(0.0, result.y);
+        assert_eq!(0.0, result.z);
     }
 
     #[test]
     fn vector_neg() {
         let result = -Vec3::one();
 
-        assert_eq!(result.x, -1.0);
-        assert_eq!(result.y, -1.0);
-        assert_eq!(result.z, -1.0);
+        assert_eq!(1.0, -result.x);
+        assert_eq!(1.0, -result.y);
+        assert_eq!(1.0, -result.z);
     }
 
     #[test]
@@ -196,9 +196,9 @@ mod tests {
         let value = Vec3::new(2.0, 2.0, 2.0);
         let result = Vec3::one() + value;
 
-        assert_eq!(result.x, 3.0);
-        assert_eq!(result.y, 3.0);
-        assert_eq!(result.z, 3.0);
+        assert_eq!(3.0, result.x);
+        assert_eq!(3.0, result.y);
+        assert_eq!(3.0, result.z);
     }
 
     #[test]
@@ -207,9 +207,9 @@ mod tests {
         let mut result = Vec3::one();
         result += value;
 
-        assert_eq!(result.x, 3.0);
-        assert_eq!(result.y, 3.0);
-        assert_eq!(result.z, 3.0);
+        assert_eq!(3.0, result.x);
+        assert_eq!(3.0, result.y);
+        assert_eq!(3.0, result.z);
     }
 
     #[test]
@@ -217,9 +217,9 @@ mod tests {
         let value = Vec3::new(2.0, 2.0, 2.0);
         let result = Vec3::one() - value;
 
-        assert_eq!(result.x, -1.0);
-        assert_eq!(result.y, -1.0);
-        assert_eq!(result.z, -1.0);
+        assert_eq!(-1.0, result.x);
+        assert_eq!(-1.0, result.y);
+        assert_eq!(-1.0, result.z);
     }
 
     #[test]
@@ -228,18 +228,18 @@ mod tests {
         let mut result = Vec3::one();
         result -= value;
 
-        assert_eq!(result.x, -1.0);
-        assert_eq!(result.y, -1.0);
-        assert_eq!(result.z, -1.0);
+        assert_eq!(-1.0, result.x);
+        assert_eq!(-1.0, result.y);
+        assert_eq!(-1.0, result.z);
     }
 
     #[test]
     fn vector_div() {
         let result = Vec3::one() / 2.0;
 
-        assert_eq!(result.x, 0.5);
-        assert_eq!(result.y, 0.5);
-        assert_eq!(result.z, 0.5);
+        assert_eq!(0.5, result.x);
+        assert_eq!(0.5, result.y);
+        assert_eq!(0.5, result.z);
     }
 
     #[test]
@@ -247,27 +247,27 @@ mod tests {
         let mut result = Vec3::one();
         result /= 2.0;
 
-        assert_eq!(result.x, 0.5);
-        assert_eq!(result.y, 0.5);
-        assert_eq!(result.z, 0.5);
+        assert_eq!(0.5, result.x);
+        assert_eq!(0.5, result.y);
+        assert_eq!(0.5, result.z);
     }
 
     #[test]
     fn vector_mul_float() {
         let result = Vec3::one() * 2.0;
 
-        assert_eq!(result.x, 2.0);
-        assert_eq!(result.y, 2.0);
-        assert_eq!(result.z, 2.0);
+        assert_eq!(2.0, result.x);
+        assert_eq!(2.0, result.y);
+        assert_eq!(2.0, result.z);
     }
 
     #[test]
     fn vector_mul_vec3() {
         let result = Vec3::one() * Vec3::new(2.0, 2.0, 2.0);
 
-        assert_eq!(result.x, 2.0);
-        assert_eq!(result.y, 2.0);
-        assert_eq!(result.z, 2.0);
+        assert_eq!(2.0, result.x);
+        assert_eq!(2.0, result.y);
+        assert_eq!(2.0, result.z);
     }
 
     #[test]
@@ -275,9 +275,9 @@ mod tests {
         let mut result = Vec3::one();
         result *= 2.0;
 
-        assert_eq!(result.x, 2.0);
-        assert_eq!(result.y, 2.0);
-        assert_eq!(result.z, 2.0);
+        assert_eq!(2.0, result.x);
+        assert_eq!(2.0, result.y);
+        assert_eq!(2.0, result.z);
     }
 
     #[test]
