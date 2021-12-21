@@ -178,11 +178,11 @@ mod tests {
 
     #[test]
     fn vector_neg() {
-        let result = Vec3::one();
+        let result = -Vec3::one();
 
-        assert_eq!(-result.x, -1.0);
-        assert_eq!(-result.y, -1.0);
-        assert_eq!(-result.z, -1.0);
+        assert_eq!(result.x, -1.0);
+        assert_eq!(result.y, -1.0);
+        assert_eq!(result.z, -1.0);
     }
 
     #[test]
@@ -247,8 +247,17 @@ mod tests {
     }
 
     #[test]
-    fn vector_mul() {
+    fn vector_mul_float() {
         let result = Vec3::one() * 2.0;
+
+        assert_eq!(result.x, 2.0);
+        assert_eq!(result.y, 2.0);
+        assert_eq!(result.z, 2.0);
+    }
+
+    #[test]
+    fn vector_mul_vec3() {
+        let result = Vec3::one() * Vec3::new(2.0, 2.0, 2.0);
 
         assert_eq!(result.x, 2.0);
         assert_eq!(result.y, 2.0);
