@@ -28,6 +28,30 @@ impl Vec3 {
             z: 1.0,
         }
     }
+
+    pub fn length_squared(&self) -> f64 {
+        return self.x * self.x + self.y * self.y + self.z * self.z;
+    }
+
+    pub fn length(&self) -> f64 {
+        return self.length_squared().sqrt();
+    }
+
+    pub fn dot(u: Vec3, v: Vec3) -> f64 {
+        return u.x * v.x + u.y * v.y + u.z * v.z;
+    }
+
+    pub fn cross(u: Vec3, v: Vec3) -> Vec3 {
+        return Vec3::new(
+            u.y * v.z - u.z * v.y,
+            u.z * v.x - u.x * v.z,
+            u.x * v.y - u.y * v.x,
+        );
+    }
+
+    pub fn normlised(&self) -> Vec3 {
+        return *self / self.length();
+    }
 }
 
 impl Add for Vec3 {
