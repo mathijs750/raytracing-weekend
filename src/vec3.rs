@@ -144,7 +144,13 @@ impl Neg for Vec3 {
 
 impl fmt::Display for Vec3 {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "{} {} {}", self.x, self.y, self.z)
+        write!(
+            f,
+            "{} {} {}",
+            self.x.round(),
+            self.y.round(),
+            self.z.round()
+        )
     }
 }
 
@@ -272,5 +278,16 @@ mod tests {
         assert_eq!(result.x, 2.0);
         assert_eq!(result.y, 2.0);
         assert_eq!(result.z, 2.0);
+    }
+
+    #[test]
+    fn vector_fmt() {
+        let input1 = Vec3::new((0.25 as f64) * 255.999, 0.0, (1.0 as f64) * 255.999);
+        let input2 = Vec3::new(1.0 / 3.0, 2.0 / 3.0, 3.0 / 3.0);
+        let result1 = format!("{}", input1);
+        let result2 = format!("{}", input2);
+
+        assert_eq!(result1, "64 0 256");
+        assert_eq!(result2, "0 1 1");
     }
 }
