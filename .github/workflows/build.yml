@@ -8,14 +8,12 @@ on:
 
 env:
   CARGO_TERM_COLOR: always
-
+  CARGO_MANIFEST_DIR: ./raytrace/Cargo.toml
 
 jobs:
   check:
     name: Rust project
     runs-on: ubuntu-latest
-    env:
-     CARGO_MANIFEST_DIR: ./raytrace/Cargo.toml
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
