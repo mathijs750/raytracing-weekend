@@ -1,5 +1,5 @@
 use std::fmt;
-use std::ops::{Add, AddAssign, Sub, SubAssign, Div, DivAssign, Mul, MulAssign, Neg};
+use std::ops::{Add, AddAssign, Div, DivAssign, Mul, MulAssign, Neg, Sub, SubAssign};
 
 #[derive(Debug, Copy, Clone, PartialEq)]
 pub struct Vec3 {
@@ -64,6 +64,16 @@ impl Sub for Vec3 {
     }
 }
 
+impl SubAssign for Vec3 {
+    fn sub_assign(&mut self, other: Self) {
+        *self = Self {
+            x: self.x - other.x,
+            y: self.y - other.y,
+            z: self.z - other.z,
+        };
+    }
+}
+
 impl Mul for Vec3 {
     type Output = Vec3;
 
@@ -88,11 +98,35 @@ impl Mul<f64> for Vec3 {
     }
 }
 
-impl Div<f64> for Vec3 {
-    type Output = Self;
+impl MulAssign<f64> for Vec3 {
+    fn mul_assign(&mut self, factor: f64) {
+        *self = Self {
+            x: self.x * factor,
+            y: self.y * factor,
+            z: self.z * factor,
+        };
+    }
+}
 
-    fn div(self, rhs: f64) -> Self::Output {
-        Self {  }
+impl Div<f64> for Vec3 {
+    type Output = Vec3;
+
+    fn div(self, factor: f64) -> Vec3 {
+        Vec3 {
+            x: (1.0 / factor) * self.x,
+            y: (1.0 / factor) * self.y,
+            z: (1.0 / factor) * self.z,
+        }
+    }
+}
+
+impl DivAssign<f64> for Vec3 {
+    fn div_assign(&mut self, factor: f64) {
+        *self = Self {
+            x: (1.0 / factor) * self.x,
+            y: (1.0 / factor) * self.y,
+            z: (1.0 / factor) * self.z,
+        };
     }
 }
 
