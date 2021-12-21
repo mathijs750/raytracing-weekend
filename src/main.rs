@@ -16,16 +16,7 @@ fn main() {
 
             let vector = vec3::Vec3::new(r, g, b);
 
-            print!(
-                "{} {} {}\n",
-                vector.x.round(),
-                vector.y.round(),
-                vector.z.round()
-            );
+            print!("{}\n", vector);
         }
     }
-
-    // let kaas = vector3::Vector3::new(1.0, 2.0, 3.0);
-
-    // print!("{}", kaas);
 }
