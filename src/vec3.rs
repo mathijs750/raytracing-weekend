@@ -205,4 +205,63 @@ mod tests {
         assert_eq!(result.y, 3.0);
         assert_eq!(result.z, 3.0);
     }
+
+    #[test]
+    fn vector_sub() {
+        let value = Vec3::new(2.0, 2.0, 2.0);
+        let result = Vec3::one() - value;
+
+        assert_eq!(result.x, -1.0);
+        assert_eq!(result.y, -1.0);
+        assert_eq!(result.z, -1.0);
+    }
+
+    #[test]
+    fn vector_sub_assign() {
+        let value = Vec3::new(2.0, 2.0, 2.0);
+        let mut result = Vec3::one();
+        result -= value;
+
+        assert_eq!(result.x, -1.0);
+        assert_eq!(result.y, -1.0);
+        assert_eq!(result.z, -1.0);
+    }
+
+    #[test]
+    fn vector_div() {
+        let result = Vec3::one() / 2.0;
+
+        assert_eq!(result.x, 0.5);
+        assert_eq!(result.y, 0.5);
+        assert_eq!(result.z, 0.5);
+    }
+
+    #[test]
+    fn vector_div_assign() {
+        let mut result = Vec3::one();
+        result /= 2.0;
+
+        assert_eq!(result.x, 0.5);
+        assert_eq!(result.y, 0.5);
+        assert_eq!(result.z, 0.5);
+    }
+
+    #[test]
+    fn vector_mul() {
+        let result = Vec3::one() * 2.0;
+
+        assert_eq!(result.x, 2.0);
+        assert_eq!(result.y, 2.0);
+        assert_eq!(result.z, 2.0);
+    }
+
+    #[test]
+    fn vector_mul_assign() {
+        let mut result = Vec3::one();
+        result *= 2.0;
+
+        assert_eq!(result.x, 2.0);
+        assert_eq!(result.y, 2.0);
+        assert_eq!(result.z, 2.0);
+    }
 }
