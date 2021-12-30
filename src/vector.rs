@@ -403,6 +403,19 @@ mod tests {
     }
 
     #[test]
+    fn vector_hadamard_product() {
+        let vector1 = Vec3::new(1.0, 2.0, 3.0);
+        let vector2 = Vec3::new(4.0, 5.0, 6.0);
+
+        let result = vector1 * vector2;
+        let expected = Vec3::new(4.0, 10.0, 18.0);
+
+        assert_vec3_equal!(expected.x, result.x);
+        assert_vec3_equal!(expected.y, result.y);
+        assert_vec3_equal!(expected.z, result.z);
+    }
+
+    #[test]
     fn vector_normalised() {
         let input = Vec3::new(3.0, 12.0, 24.0).normlised();
         let expected = Vec3::new(1.0 / 9.0, 4.0 / 9.0, 8.0 / 9.0);
