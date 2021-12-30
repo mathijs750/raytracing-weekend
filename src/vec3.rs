@@ -55,6 +55,19 @@ impl Vec3 {
     pub fn normlised(&self) -> Vec3 {
         return *self / self.length();
     }
+
+    pub fn to_rgb(&self) -> [u8; 3] {
+        fn f(num: f64) -> u8 {
+            if num < 0.0 {
+                0
+            } else if num >= 1.0 {
+                255
+            } else {
+                (num * 255.99) as u8
+            }
+        }
+        [f(self.x), f(self.y), f(self.z)]
+    }
 }
 
 impl Add for Vec3 {
