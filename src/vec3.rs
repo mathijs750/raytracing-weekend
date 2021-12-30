@@ -190,39 +190,47 @@ impl fmt::Display for Vec3 {
 
 #[cfg(test)]
 mod tests {
-    use crate::vec3::Vec3;
+    use super::*;
+    use assert_approx_eq::*;
+
+    macro_rules! assert_vec3_equal {
+        ($expected:expr, $actual:expr) => {
+            let tolerance = 0.0001;
+            assert_approx_eq!($expected, $actual, tolerance);
+        };
+    }
 
     #[test]
     fn vector_new() {
         let result = Vec3::new(3.0, 5.5, 1.22);
-        assert_eq!(3.0, result.x);
-        assert_eq!(5.5, result.y);
-        assert_eq!(1.22, result.z);
+        assert_vec3_equal!(3.0, result.x);
+        assert_vec3_equal!(5.5, result.y);
+        assert_vec3_equal!(1.22, result.z);
     }
 
     #[test]
     fn vector_one() {
         let result = Vec3::one();
-        assert_eq!(1.0, result.x);
-        assert_eq!(1.0, result.y);
-        assert_eq!(1.0, result.z);
+        assert_vec3_equal!(1.0, result.x);
+        assert_vec3_equal!(1.0, result.y);
+        assert_vec3_equal!(1.0, result.z);
     }
 
     #[test]
     fn vector_zero() {
         let result = Vec3::zero();
-        assert_eq!(0.0, result.x);
-        assert_eq!(0.0, result.y);
-        assert_eq!(0.0, result.z);
+        assert_vec3_equal!(0.0, result.x);
+        assert_vec3_equal!(0.0, result.y);
+        assert_vec3_equal!(0.0, result.z);
     }
 
     #[test]
     fn vector_neg() {
         let result = -Vec3::one();
 
-        assert_eq!(1.0, -result.x);
-        assert_eq!(1.0, -result.y);
-        assert_eq!(1.0, -result.z);
+        assert_vec3_equal!(1.0, -result.x);
+        assert_vec3_equal!(1.0, -result.y);
+        assert_vec3_equal!(1.0, -result.z);
     }
 
     #[test]
@@ -230,9 +238,9 @@ mod tests {
         let value = Vec3::new(2.0, 2.0, 2.0);
         let result = Vec3::one() + value;
 
-        assert_eq!(3.0, result.x);
-        assert_eq!(3.0, result.y);
-        assert_eq!(3.0, result.z);
+        assert_vec3_equal!(3.0, result.x);
+        assert_vec3_equal!(3.0, result.y);
+        assert_vec3_equal!(3.0, result.z);
     }
 
     #[test]
@@ -241,9 +249,9 @@ mod tests {
         let mut result = Vec3::one();
         result += value;
 
-        assert_eq!(3.0, result.x);
-        assert_eq!(3.0, result.y);
-        assert_eq!(3.0, result.z);
+        assert_vec3_equal!(3.0, result.x);
+        assert_vec3_equal!(3.0, result.y);
+        assert_vec3_equal!(3.0, result.z);
     }
 
     #[test]
@@ -251,9 +259,9 @@ mod tests {
         let value = Vec3::new(2.0, 2.0, 2.0);
         let result = Vec3::one() - value;
 
-        assert_eq!(-1.0, result.x);
-        assert_eq!(-1.0, result.y);
-        assert_eq!(-1.0, result.z);
+        assert_vec3_equal!(-1.0, result.x);
+        assert_vec3_equal!(-1.0, result.y);
+        assert_vec3_equal!(-1.0, result.z);
     }
 
     #[test]
@@ -262,18 +270,18 @@ mod tests {
         let mut result = Vec3::one();
         result -= value;
 
-        assert_eq!(-1.0, result.x);
-        assert_eq!(-1.0, result.y);
-        assert_eq!(-1.0, result.z);
+        assert_vec3_equal!(-1.0, result.x);
+        assert_vec3_equal!(-1.0, result.y);
+        assert_vec3_equal!(-1.0, result.z);
     }
 
     #[test]
     fn vector_div() {
         let result = Vec3::one() / 2.0;
 
-        assert_eq!(0.5, result.x);
-        assert_eq!(0.5, result.y);
-        assert_eq!(0.5, result.z);
+        assert_vec3_equal!(0.5, result.x);
+        assert_vec3_equal!(0.5, result.y);
+        assert_vec3_equal!(0.5, result.z);
     }
 
     #[test]
@@ -281,27 +289,27 @@ mod tests {
         let mut result = Vec3::one();
         result /= 2.0;
 
-        assert_eq!(0.5, result.x);
-        assert_eq!(0.5, result.y);
-        assert_eq!(0.5, result.z);
+        assert_vec3_equal!(0.5, result.x);
+        assert_vec3_equal!(0.5, result.y);
+        assert_vec3_equal!(0.5, result.z);
     }
 
     #[test]
     fn vector_mul_float() {
         let result = Vec3::one() * 2.0;
 
-        assert_eq!(2.0, result.x);
-        assert_eq!(2.0, result.y);
-        assert_eq!(2.0, result.z);
+        assert_vec3_equal!(2.0, result.x);
+        assert_vec3_equal!(2.0, result.y);
+        assert_vec3_equal!(2.0, result.z);
     }
 
     #[test]
     fn vector_mul_vec3() {
         let result = Vec3::one() * Vec3::new(2.0, 2.0, 2.0);
 
-        assert_eq!(2.0, result.x);
-        assert_eq!(2.0, result.y);
-        assert_eq!(2.0, result.z);
+        assert_vec3_equal!(2.0, result.x);
+        assert_vec3_equal!(2.0, result.y);
+        assert_vec3_equal!(2.0, result.z);
     }
 
     #[test]
@@ -309,13 +317,13 @@ mod tests {
         let mut result = Vec3::one();
         result *= 2.0;
 
-        assert_eq!(2.0, result.x);
-        assert_eq!(2.0, result.y);
-        assert_eq!(2.0, result.z);
+        assert_vec3_equal!(2.0, result.x);
+        assert_vec3_equal!(2.0, result.y);
+        assert_vec3_equal!(2.0, result.z);
     }
 
     #[test]
-    fn vector_fmt() {
+    fn vector_format() {
         let input = Vec3::new(1.0, 2.5, 3.33333333333);
         let result = format!("{}", input);
 
@@ -324,16 +332,16 @@ mod tests {
 
     #[test]
     fn vector_length() {
-        let input = Vec3::new(5.0, 12.0, 0.0);
+        let input = Vec3::new(5.0, 12.0, 0.0).length();
 
-        assert_eq!(input.length(), 13.0);
+        assert_vec3_equal!(input, 13.0);
     }
 
     #[test]
     fn vector_length_squared() {
-        let input = Vec3::new(5.0, 12.0, 0.0);
+        let input = Vec3::new(5.0, 12.0, 0.0).length_squared();
 
-        assert_eq!(input.length_squared(), 169.0);
+        assert_vec3_equal!(input, 169.0);
     }
 
     #[test]
@@ -343,7 +351,7 @@ mod tests {
 
         let result = Vec3::dot(a, b);
 
-        assert_eq!(122.0, result);
+        assert_vec3_equal!(122.0, result);
     }
 
     #[test]
@@ -353,9 +361,9 @@ mod tests {
 
         let result = Vec3::cross(a, b);
 
-        assert_eq!(0.0, result.x);
-        assert_eq!(0.0, result.y);
-        assert_eq!(1.0, result.z);
+        assert_vec3_equal!(0.0, result.x);
+        assert_vec3_equal!(0.0, result.y);
+        assert_vec3_equal!(1.0, result.z);
     }
 
     #[test]
@@ -365,16 +373,26 @@ mod tests {
 
         let result = Vec3::cross(a, b);
 
-        assert_eq!(-3.0, result.x);
-        assert_eq!(6.0, result.y);
-        assert_eq!(-3.0, result.z);
+        assert_vec3_equal!(-3.0, result.x);
+        assert_vec3_equal!(6.0, result.y);
+        assert_vec3_equal!(-3.0, result.z);
     }
 
     #[test]
     fn vector_normalised() {
-        let input = Vec3::new(3.0, 12.0, 24.0);
+        let input = Vec3::new(3.0, 12.0, 24.0).normlised();
         let expected = Vec3::new(1.0 / 9.0, 4.0 / 9.0, 8.0 / 9.0);
 
-        assert_eq!(expected, input.normlised());
+        assert_vec3_equal!(expected.x, input.x);
+        assert_vec3_equal!(expected.y, input.y);
+        assert_vec3_equal!(expected.z, input.z);
+    }
+
+    #[test]
+    fn vector_to_rbg() {
+        let result = Vec3::new(-1.0, 0.5, 1.4).to_rgb();
+        let expected = [0u8, 127u8, 255u8];
+
+        assert_eq!(expected, result);
     }
 }
