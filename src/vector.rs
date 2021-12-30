@@ -56,6 +56,10 @@ impl Vec3 {
         return *self / self.length();
     }
 
+    pub fn unit_vector(&self) -> Vec3 {
+        return self.normlised();
+    }
+
     pub fn to_rgb(&self) -> [u8; 3] {
         fn f(num: f64) -> u8 {
             if num < 0.0 {
@@ -401,6 +405,16 @@ mod tests {
     #[test]
     fn vector_normalised() {
         let input = Vec3::new(3.0, 12.0, 24.0).normlised();
+        let expected = Vec3::new(1.0 / 9.0, 4.0 / 9.0, 8.0 / 9.0);
+
+        assert_vec3_equal!(expected.x, input.x);
+        assert_vec3_equal!(expected.y, input.y);
+        assert_vec3_equal!(expected.z, input.z);
+    }
+
+    #[test]
+    fn vector_unitvector() {
+        let input = Vec3::new(3.0, 12.0, 24.0).unit_vector();
         let expected = Vec3::new(1.0 / 9.0, 4.0 / 9.0, 8.0 / 9.0);
 
         assert_vec3_equal!(expected.x, input.x);
