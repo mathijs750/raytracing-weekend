@@ -1,4 +1,4 @@
-use crate::vec3::*;
+use crate::vector::*;
 
 #[derive(Debug, Copy, Clone, PartialEq)]
 pub struct Ray {
@@ -21,19 +21,27 @@ impl Ray {
 
 #[cfg(test)]
 mod tests {
-    use crate::ray::*;
+    use super::*;
+    use assert_approx_eq::*;
+
+    macro_rules! assert_vec3_equal {
+        ($expected:expr, $actual:expr) => {
+            let tolerance = 0.0001;
+            assert_approx_eq!($expected, $actual, tolerance);
+        };
+    }
 
     #[test]
     fn ray_new() {
         let result = Ray::new(Point3::new(3.5, 1.5, 0.0), Vec3::one());
 
-        assert_eq!(3.5, result.origin.x);
-        assert_eq!(1.5, result.origin.y);
-        assert_eq!(0.0, result.origin.z);
+        assert_vec3_equal!(3.5, result.origin.x);
+        assert_vec3_equal!(1.5, result.origin.y);
+        assert_vec3_equal!(0.0, result.origin.z);
 
-        assert_eq!(1.0, result.direction.x);
-        assert_eq!(1.0, result.direction.y);
-        assert_eq!(1.0, result.direction.z);
+        assert_vec3_equal!(1.0, result.direction.x);
+        assert_vec3_equal!(1.0, result.direction.y);
+        assert_vec3_equal!(1.0, result.direction.z);
     }
 
     #[test]
@@ -42,8 +50,8 @@ mod tests {
 
         let result = input.at(5.0);
 
-        assert_eq!(15.0, result.x);
-        assert_eq!(5.0, result.y);
-        assert_eq!(0.0, result.z);
+        assert_vec3_equal!(15.0, result.x);
+        assert_vec3_equal!(5.0, result.y);
+        assert_vec3_equal!(0.0, result.z);
     }
 }
