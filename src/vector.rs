@@ -40,16 +40,16 @@ impl Vec3 {
         return self.length_squared().sqrt();
     }
 
-    pub fn dot(u: Vec3, v: Vec3) -> f64 {
-        return u.x * v.x + u.y * v.y + u.z * v.z;
+    pub fn dot(&self, other: Vec3) -> f64 {
+        self.x * other.x + self.y * other.y + self.z * other.z
     }
 
-    pub fn cross(u: Vec3, v: Vec3) -> Vec3 {
-        return Vec3::new(
-            u.y * v.z - u.z * v.y,
-            u.z * v.x - u.x * v.z,
-            u.x * v.y - u.y * v.x,
-        );
+    pub fn cross(&self, other: Vec3) -> Vec3 {
+        Vec3 {
+            x: self.y * other.z - self.z * other.y,
+            y: self.z * other.x - self.x * other.z,
+            z: self.x * other.y - self.y * other.x,
+        }
     }
 
     pub fn normlised(&self) -> Vec3 {
@@ -145,10 +145,10 @@ impl Mul<f64> for Vec3 {
 impl Mul<Vec3> for f64 {
     type Output = Vec3;
     fn mul(self, rhs: Vec3) -> Vec3 {
-        Vec3{
+        Vec3 {
             x: self * rhs.x,
-            y: self * rhs.y, 
-            z: self * rhs.z
+            y: self * rhs.y,
+            z: self * rhs.z,
         }
     }
 }
@@ -373,7 +373,7 @@ mod tests {
         let a = Vec3::new(9.0, 2.0, 7.0);
         let b = Vec3::new(4.0, 8.0, 10.0);
 
-        let result = Vec3::dot(a, b);
+        let result = a.dot(b);
 
         assert_vec3_equal!(122.0, result);
     }
@@ -383,7 +383,7 @@ mod tests {
         let a = Vec3::new(1.0, 0.0, 0.0);
         let b = Vec3::new(0.0, 1.0, 0.0);
 
-        let result = Vec3::cross(a, b);
+        let result = a.cross(b);
 
         assert_vec3_equal!(0.0, result.x);
         assert_vec3_equal!(0.0, result.y);
@@ -395,7 +395,7 @@ mod tests {
         let a = Vec3::new(2.0, 3.0, 4.0);
         let b = Vec3::new(5.0, 6.0, 7.0);
 
-        let result = Vec3::cross(a, b);
+        let result = a.cross(b);
 
         assert_vec3_equal!(-3.0, result.x);
         assert_vec3_equal!(6.0, result.y);
