@@ -138,6 +138,17 @@ impl Mul<f64> for Vec3 {
     }
 }
 
+impl Mul<Vec3> for f64 {
+    type Output = Vec3;
+    fn mul(self, rhs: Vec3) -> Vec3 {
+        Vec3{
+            x: self * rhs.x,
+            y: self * rhs.y, 
+            z: self * rhs.z
+        }
+    }
+}
+
 impl MulAssign<f64> for Vec3 {
     fn mul_assign(&mut self, factor: f64) {
         *self = Self {
@@ -295,7 +306,7 @@ mod tests {
     }
 
     #[test]
-    fn vector_mul_float() {
+    fn vector_mul_vec3_with_float() {
         let result = Vec3::one() * 2.0;
 
         assert_vec3_equal!(2.0, result.x);
@@ -304,7 +315,16 @@ mod tests {
     }
 
     #[test]
-    fn vector_mul_vec3() {
+    fn vector_mul_float_with_vec3() {
+        let result = 2.0 * Vec3::one();
+
+        assert_vec3_equal!(2.0, result.x);
+        assert_vec3_equal!(2.0, result.y);
+        assert_vec3_equal!(2.0, result.z);
+    }
+
+    #[test]
+    fn vector_mul_vec3_with_vec3() {
         let result = Vec3::one() * Vec3::new(2.0, 2.0, 2.0);
 
         assert_vec3_equal!(2.0, result.x);
