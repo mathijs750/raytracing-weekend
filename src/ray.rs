@@ -1,13 +1,21 @@
+use crate::hittable::Hittable;
+use crate::hittable_list::HittableList;
 use crate::vector::*;
-use crate::hittable::*;
-use crate::hittable_list::*;
-use rand::prelude::*;
+use rand::prelude::ThreadRng;
 
 const T_MIN: f64 = 0.0001;
 const T_MAX: f64 = f64::MAX;
 
-const COLOR_WHITE: Color = Color { x: 1.0, y: 1.0, z: 1.0};
-const COLOR_SKYBLUE: Color = Color { x: 0.5, y: 0.7, z: 1.0 };
+const COLOR_WHITE: Color = Color {
+    x: 1.0,
+    y: 1.0,
+    z: 1.0,
+};
+const COLOR_SKYBLUE: Color = Color {
+    x: 0.5,
+    y: 0.7,
+    z: 1.0,
+};
 
 pub struct Ray {
     pub origin: Point3,
@@ -35,7 +43,7 @@ impl Ray {
         match t {
             Some(record) => {
                 let target = record.point + record.normal + Vec3::random_unit_vector(rng);
-                0.5 * Ray::new(record.point, target-record.point).color(world, rng, depth - 1)
+                0.5 * Ray::new(record.point, target - record.point).color(world, rng, depth - 1)
                 //(COLOR_WHITE + record.normal.unit_vector())
             }
 
@@ -78,7 +86,6 @@ mod tests {
         let ray = Ray::new(Point3::new(1.0, 1.0, 1.0), Vec3::new(3.0, 4.0, 0.0));
         let position = ray.at(5.0);
         let expected = Vec3::new(16.0, 21.0, 1.0);
-        
         assert_vec3_equal!(expected.x, position.x);
         assert_vec3_equal!(expected.y, position.y);
         assert_vec3_equal!(expected.z, position.z);

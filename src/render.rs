@@ -23,8 +23,8 @@ pub fn render(
             let mut rng = thread_rng();
             let x = index % image_width;
             let y = index / image_width;
-            let mut color: Color = Color::new(0.0, 0.0, 0.0);
-            for _s in 0..samples {
+            let mut color: Color = Color::zero();
+            for _sample in 0..samples {
                 let rand_x: f64 = rng.gen();
                 let rand_y: f64 = rng.gen();
                 let u = (rand_x + x as f64) / (image_width - 1) as f64;

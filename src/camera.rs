@@ -6,7 +6,6 @@ pub struct Camera {
     // viewport_height: f32,
     // viewport_width: f32,
     // focal_length: f32,
-
     origin: Point3,
     horizontal: Vec3,
     vertical: Vec3,
@@ -41,7 +40,7 @@ impl Camera {
     pub fn get_ray(&self, u: f64, v: f64) -> Ray {
         Ray::new(
             self.origin,
-            self.lower_left_corner + u * self.horizontal + v * self.vertical - self.origin
+            self.lower_left_corner + u * self.horizontal + v * self.vertical - self.origin,
         )
     }
 }

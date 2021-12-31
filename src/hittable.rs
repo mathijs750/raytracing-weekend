@@ -1,11 +1,11 @@
 use crate::ray::Ray;
-use crate::vector::*;
+use crate::vector::{Point3, Vec3};
 
 pub struct HitRecord {
     pub point: Point3,
     pub normal: Vec3,
     pub t: f64,
-    pub front_face: bool
+    pub front_face: bool,
 }
 
 impl HitRecord {
@@ -14,7 +14,7 @@ impl HitRecord {
             point: p,
             normal: if front_face { normal } else { -normal },
             t: t,
-            front_face: front_face
+            front_face: front_face,
         }
     }
 }

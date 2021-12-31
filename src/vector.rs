@@ -1,5 +1,5 @@
 use core::fmt;
-use rand::prelude::*;
+use rand::prelude::{Rng, ThreadRng};
 use std::f64::consts::PI;
 use std::ops::{Add, AddAssign, Div, DivAssign, Mul, MulAssign, Neg, Sub, SubAssign};
 
@@ -220,6 +220,7 @@ impl fmt::Display for Vec3 {
 mod tests {
     use super::*;
     use assert_approx_eq::*;
+    use rand::thread_rng;
 
     macro_rules! assert_vec3_equal {
         ($expected:expr, $actual:expr) => {
