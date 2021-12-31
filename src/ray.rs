@@ -1,6 +1,7 @@
 use crate::vector::*;
 use crate::hittable::*;
 use crate::hittable_list::*;
+use rand::prelude::*;
 
 const T_MIN: f64 = 0.0001;
 const T_MAX: f64 = f64::MAX;
@@ -25,11 +26,17 @@ impl Ray {
         return self.origin + self.direction * t;
     }
 
-    pub fn color(&self, world: &HittableList) -> Color {
+    pub fn color(&self, world: &HittableList, rng: &mut ThreadRng, depth: i32) -> Color {
+        if depth <= 0 {
+            return Color::new(0.0, 0.0, 0.0);
+        }
+
         let t = world.hit(&self, T_MIN, T_MAX);
         match t {
             Some(record) => {
-                0.5 * (COLOR_WHITE + record.normal.unit_vector())
+                let target = record.point + record.normal + Vec3::random_unit_vector(rng);
+                0.5 * Ray::new(record.point, target-record.point).color(world, rng, depth - 1)
+                //(COLOR_WHITE + record.normal.unit_vector())
             }
 
             None => {
