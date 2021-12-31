@@ -1,4 +1,6 @@
-use std::fmt;
+use core::fmt;
+use rand::prelude::*;
+use std::f64::consts::PI;
 use std::ops::{Add, AddAssign, Div, DivAssign, Mul, MulAssign, Neg, Sub, SubAssign};
 
 pub type Point3 = Vec3;
@@ -71,6 +73,17 @@ impl Vec3 {
             }
         }
         [f(self.x), f(self.y), f(self.z)]
+    }
+
+    pub fn random_unit_vector(rng: &mut ThreadRng) -> Vec3 {
+        let a: f64 = rng.gen_range(0.0..2.0 * PI);
+        let z: f64 = rng.gen_range(-1.0..1.0);
+        let r = (1.0 - z * z).sqrt();
+        return Vec3::new(r * a.cos(), r * a.sin(), z);
+    }
+
+    pub fn sqrt(&self) -> Vec3 {
+        Vec3::new(self.x.sqrt(), self.y.sqrt(), self.z.sqrt())
     }
 }
 
@@ -441,5 +454,25 @@ mod tests {
         let expected = [0u8, 127u8, 255u8];
 
         assert_eq!(expected, result);
+    }
+
+    #[test]
+    fn vector_random_unit() {
+        let mut rng = thread_rng();
+        let input = Vec3::random_unit_vector(&mut rng);
+        let result = input.length();
+
+        assert_vec3_equal!(1.0, result);
+    }
+
+    #[test]
+    fn vector_square_root() {
+        let input = Vec3::new(144.0, 144.0, 144.0);
+        let result = input.sqrt();
+        let expected = Vec3::new(12.0, 12.0, 12.0);
+
+        assert_vec3_equal!(expected.x, result.x);
+        assert_vec3_equal!(expected.y, result.y);
+        assert_vec3_equal!(expected.z, result.z);
     }
 }
