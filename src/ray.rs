@@ -39,7 +39,8 @@ impl Ray {
         let t = world.hit(self, T_MIN, T_MAX);
         match t {
             Some(record) => {
-                let target = record.point + record.normal + Vec3::random_unit_vector(rng);
+                let target = record.point + Vec3::random_in_hemisphere(record.normal);
+                //let target = record.point + record.normal + Vec3::random_unit_vector(rng);
                 0.5 * Ray::new(record.point, target - record.point).color(world, rng, depth - 1)
                 //(COLOR_WHITE + record.normal.unit_vector())
             }

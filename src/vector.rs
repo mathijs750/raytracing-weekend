@@ -62,7 +62,15 @@ impl Vec3 {
         self.normlised()
     }
 
-    pub fn to_rgb(&self) -> [u8; 3] {
+    pub fn sqrt(self) -> Vec3 {
+        Vec3::new(self.x.sqrt(), self.y.sqrt(), self.z.sqrt())
+    }
+
+    pub fn reflect(self, other: Vec3) -> Vec3 {
+        self - 2.0 * self.dot(other) * other
+    }
+
+    pub fn to_rgb(self) -> [u8; 3] {
         fn f(num: f64) -> u8 {
             if num < 0.0 {
                 0
@@ -75,15 +83,44 @@ impl Vec3 {
         [f(self.x), f(self.y), f(self.z)]
     }
 
-    pub fn random_unit_vector(rng: &mut ThreadRng) -> Vec3 {
-        let a: f64 = rng.gen_range(0.0..2.0 * PI);
-        let z: f64 = rng.gen_range(-1.0..1.0);
-        let r = (1.0 - z * z).sqrt();
-        return Vec3::new(r * a.cos(), r * a.sin(), z);
+    pub fn random(r: Range<f64>) -> Vec3 {
+        let mut rng = rand::thread_rng();
+
+        Vec3::new(
+            rng.gen_range(r.clone()),
+            rng.gen_range(r.clone()),
+            rng.gen_range(r.clone()),
+        )
     }
 
-    pub fn sqrt(&self) -> Vec3 {
-        Vec3::new(self.x.sqrt(), self.y.sqrt(), self.z.sqrt())
+    pub fn random_in_unit_sphere() -> Vec3 {
+        loop {
+            let v = Vec3::random(-1.0..1.0);
+            if v.length() < 1.0 {
+                return v;
+            }
+        }
+    }
+
+    pub fn random_in_hemisphere(normal: Vec3) -> Vec3 {
+        let in_unit_sphere = Self::random_in_unit_sphere();
+        if in_unit_sphere.dot(normal) > 0.0 {
+            // In the same hemisphere as the normal
+            in_unit_sphere
+        } else {
+            (-1.0) * in_unit_sphere
+        }
+    }
+
+    pub fn random_in_unit_disk() -> Vec3 {
+        let mut rng = rand::thread_rng();
+
+        loop {
+            let p = Vec3::new(rng.gen_range(-1.0..1.0), rng.gen_range(-1.0..1.0), 0.0);
+            if p.length() < 1.0 {
+                return p;
+            }
+        }
     }
 }
 
@@ -220,7 +257,6 @@ impl fmt::Display for Vec3 {
 mod tests {
     use super::*;
     use assert_approx_eq::*;
-    use rand::thread_rng;
 
     macro_rules! assert_vec3_equal {
         ($expected:expr, $actual:expr) => {
@@ -430,13 +466,27 @@ mod tests {
     }
 
     #[test]
-    fn vector_normalised() {
+    fn vector_normalised_big_vector() {
         let input = Vec3::new(3.0, 12.0, 24.0).normlised();
         let expected = Vec3::new(1.0 / 9.0, 4.0 / 9.0, 8.0 / 9.0);
+        let length = expected.length();
 
         assert_vec3_equal!(expected.x, input.x);
         assert_vec3_equal!(expected.y, input.y);
         assert_vec3_equal!(expected.z, input.z);
+        assert_vec3_equal!(1.0, length);
+    }
+
+    #[test]
+    fn vector_normalised_small_vector() {
+        let input = Vec3::new(3.0 / 10.0, 3.0 / 5.0, 1.0).normlised();
+        let expected = Vec3::new(0.24913643956122, 0.49827287912244, 0.8304547985374);
+        let length = expected.length();
+
+        assert_vec3_equal!(expected.x, input.x);
+        assert_vec3_equal!(expected.y, input.y);
+        assert_vec3_equal!(expected.z, input.z);
+        assert_vec3_equal!(1.0, length);
     }
 
     #[test]
@@ -458,12 +508,33 @@ mod tests {
     }
 
     #[test]
-    fn vector_random_unit() {
-        let mut rng = thread_rng();
-        let input = Vec3::random_unit_vector(&mut rng);
+    fn vector_random_unit_sphere() {
+        let input = Vec3::random_in_unit_sphere();
         let result = input.length();
 
-        assert_vec3_equal!(1.0, result);
+        assert_ne!(1.0, result);
+    }
+
+    #[test]
+    fn vector_random_unit_hemisphere() {
+        let input1 = Vec3::random_in_hemisphere(Vec3::new(0.0, 1.0, 0.0));
+        let input2 = Vec3::random_in_hemisphere(Vec3::new(0.0, -1.0, 0.0));
+        let result1 = input1.y > 0.0;
+        let result2 = input2.y < 0.0;
+
+        assert!(result1);
+        assert!(result2);
+        assert_ne!(1.0, input1.length());
+        assert_ne!(1.0, input2.length());
+    }
+
+    #[test]
+    fn vector_random_unit_disc() {
+        let input = Vec3::random_in_unit_disk();
+        let result = input.length();
+
+        assert_ne!(1.0, result);
+        assert_vec3_equal!(0.0, input.z);
     }
 
     #[test]
