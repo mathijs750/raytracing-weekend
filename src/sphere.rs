@@ -1,4 +1,4 @@
-use crate::hittable::{Hittable, HitRecord};
+use crate::hittable::{HitRecord, Hittable};
 use crate::ray::Ray;
 use crate::vector::Vec3;
 
@@ -9,10 +9,7 @@ pub struct Sphere {
 
 impl Sphere {
     pub fn new(center: Vec3, radius: f64) -> Sphere {
-        Sphere {
-            center: center,
-            radius: radius,
-        }
+        Sphere { center, radius }
     }
 }
 

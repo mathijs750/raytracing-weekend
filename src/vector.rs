@@ -1,6 +1,6 @@
 use core::fmt;
-use rand::prelude::{Rng, ThreadRng};
-use std::f64::consts::PI;
+use rand::prelude::Rng;
+use std::ops::Range;
 use std::ops::{Add, AddAssign, Div, DivAssign, Mul, MulAssign, Neg, Sub, SubAssign};
 
 pub type Point3 = Vec3;
@@ -34,11 +34,11 @@ impl Vec3 {
         }
     }
 
-    pub fn length_squared(&self) -> f64 {
+    pub fn length_squared(self) -> f64 {
         self.x * self.x + self.y * self.y + self.z * self.z
     }
 
-    pub fn length(&self) -> f64 {
+    pub fn length(self) -> f64 {
         self.length_squared().sqrt()
     }
 
@@ -58,7 +58,7 @@ impl Vec3 {
         *self / self.length()
     }
 
-    pub fn unit_vector(&self) -> Vec3 {
+    pub fn unit_vector(self) -> Vec3 {
         self.normlised()
     }
 

@@ -13,8 +13,8 @@ impl HitRecord {
         HitRecord {
             point: p,
             normal: if front_face { normal } else { -normal },
-            t: t,
-            front_face: front_face,
+            t,
+            front_face,
         }
     }
 }

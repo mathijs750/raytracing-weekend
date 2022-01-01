@@ -24,14 +24,11 @@ pub struct Ray {
 
 impl Ray {
     pub fn new(origin: Point3, direction: Vec3) -> Ray {
-        Ray {
-            origin: origin,
-            direction: direction,
-        }
+        Ray { origin, direction }
     }
 
     pub fn at(&self, t: f64) -> Point3 {
-        return self.origin + self.direction * t;
+        self.origin + self.direction * t
     }
 
     pub fn color(&self, world: &HittableList, rng: &mut ThreadRng, depth: i32) -> Color {
@@ -39,7 +36,7 @@ impl Ray {
             return Color::new(0.0, 0.0, 0.0);
         }
 
-        let t = world.hit(&self, T_MIN, T_MAX);
+        let t = world.hit(self, T_MIN, T_MAX);
         match t {
             Some(record) => {
                 let target = record.point + record.normal + Vec3::random_unit_vector(rng);

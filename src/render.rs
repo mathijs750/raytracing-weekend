@@ -15,7 +15,6 @@ pub fn render(
     samples: u32,
 ) -> RgbImage {
     let start = std::time::Instant::now();
-    
     let mut buffer: RgbImage = ImageBuffer::new(image_width, image_height);
 
     let colors: Vec<Color> = (0..image_height * image_width)
@@ -31,7 +30,7 @@ pub fn render(
                 let u = (rand_x + x as f64) / (image_width - 1) as f64;
                 let v = 1.0 - (rand_y + y as f64) / (image_height - 1) as f64;
                 let ray = camera.get_ray(u, v);
-                color = color + ray.color(&world, &mut rng, MAX_DEPTH);
+                color += ray.color(world, &mut rng, MAX_DEPTH);
             }
             (color / samples as f64).sqrt()
         })

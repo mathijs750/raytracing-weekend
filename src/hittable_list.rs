@@ -9,9 +9,10 @@ pub struct HittableList {
 
 impl HittableList {
     pub fn new() -> HittableList {
-        let mut spheres = Vec::new();
-        spheres.push(Sphere::new(Point3::new(0.0, 0.0, -1.0), 0.5));
-        spheres.push(Sphere::new(Point3::new(0.0, -100.5, -1.0), 100.0));
+        let spheres = vec![
+            Sphere::new(Point3::new(0.0, 0.0, -1.0), 0.5),
+            Sphere::new(Point3::new(0.0, -100.5, -1.0), 100.0),
+        ];
         HittableList { objects: spheres }
     }
 }
@@ -21,13 +22,10 @@ impl Hittable for HittableList {
         let mut temp_rec = HitRecord::new(Point3::zero(), Vec3::zero(), t_max, true);
 
         for object in &self.objects {
-            match object.hit(ray, t_min, t_max) {
-                Some(record) => {
-                    if record.t < temp_rec.t {
-                        temp_rec = record;
-                    }
+            if let Some(record) = object.hit(ray, t_min, t_max) {
+                if record.t < temp_rec.t {
+                    temp_rec = record;
                 }
-                None => {}
             }
         }
 
