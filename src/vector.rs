@@ -35,11 +35,11 @@ impl Vec3 {
     }
 
     pub fn length_squared(&self) -> f64 {
-        return self.x * self.x + self.y * self.y + self.z * self.z;
+        self.x * self.x + self.y * self.y + self.z * self.z
     }
 
     pub fn length(&self) -> f64 {
-        return self.length_squared().sqrt();
+        self.length_squared().sqrt()
     }
 
     pub fn dot(&self, other: Vec3) -> f64 {
@@ -55,11 +55,11 @@ impl Vec3 {
     }
 
     pub fn normlised(&self) -> Vec3 {
-        return *self / self.length();
+        *self / self.length()
     }
 
     pub fn unit_vector(&self) -> Vec3 {
-        return self.normlised();
+        self.normlised()
     }
 
     pub fn to_rgb(&self) -> [u8; 3] {

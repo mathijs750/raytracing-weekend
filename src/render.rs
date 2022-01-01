@@ -15,6 +15,7 @@ pub fn render(
     samples: u32,
 ) -> RgbImage {
     let start = std::time::Instant::now();
+    
     let mut buffer: RgbImage = ImageBuffer::new(image_width, image_height);
 
     let colors: Vec<Color> = (0..image_height * image_width)
