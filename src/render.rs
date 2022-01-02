@@ -1,4 +1,3 @@
-use image::{ImageBuffer, Rgb, RgbImage};
 use rand::prelude::*;
 use rayon::iter::{IntoParallelIterator, ParallelIterator};
 
@@ -13,9 +12,9 @@ pub fn render(
     image_width: u32,
     image_height: u32,
     samples: u32,
-) -> RgbImage {
+    screen: &mut [u8],
+) {
     let start = std::time::Instant::now();
-    let mut buffer: RgbImage = ImageBuffer::new(image_width, image_height);
 
     let colors: Vec<Color> = (0..image_height * image_width)
         .into_par_iter()
@@ -35,11 +34,10 @@ pub fn render(
             (color / samples as f64).sqrt()
         })
         .collect();
-    for (x, y, pixel) in buffer.enumerate_pixels_mut() {
-        let index: usize = (y * image_width) as usize + x as usize;
-        let color = colors.get(index).unwrap();
-        *pixel = Rgb(color.to_rgb());
+
+    for (i, pixel) in screen.chunks_exact_mut(4).enumerate() {
+        let color = colors.get(i).unwrap();
+        pixel.copy_from_slice(&color.to_rgba());
     }
     eprintln!("Elapsed: {:?}", start.elapsed());
-    buffer
 }
