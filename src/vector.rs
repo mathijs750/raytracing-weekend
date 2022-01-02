@@ -70,7 +70,7 @@ impl Vec3 {
         self - 2.0 * self.dot(other) * other
     }
 
-    pub fn to_rgb(self) -> [u8; 3] {
+    pub fn to_rgba(self) -> [u8; 4] {
         fn f(num: f64) -> u8 {
             if num < 0.0 {
                 0
@@ -80,7 +80,7 @@ impl Vec3 {
                 (num * 255.99) as u8
             }
         }
-        [f(self.x), f(self.y), f(self.z)]
+        [f(self.x), f(self.y), f(self.z), 0xff]
     }
 
     pub fn random(r: Range<f64>) -> Vec3 {
@@ -500,9 +500,9 @@ mod tests {
     }
 
     #[test]
-    fn vector_to_rbg() {
-        let result = Vec3::new(-1.0, 0.5, 1.4).to_rgb();
-        let expected = [0u8, 127u8, 255u8];
+    fn vector_to_rbga() {
+        let result = Vec3::new(-1.0, 0.5, 1.4).to_rgba();
+        let expected = [0u8, 127u8, 255u8, 0xff];
 
         assert_eq!(expected, result);
     }
