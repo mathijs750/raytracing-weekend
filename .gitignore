@@ -7,6 +7,7 @@
 *.code-workspace
 
 # Output
+output/
 *.ppm
 *.ppm.txt
 *.png
